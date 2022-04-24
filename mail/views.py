@@ -80,6 +80,7 @@ def mailbox(request, mailbox):
         emails = Email.objects.filter(
             user=request.user, recipients=request.user, archived=False
         )
+        print(f"Successfully extracted all inbox {emails}")
     elif mailbox == "sent":
         emails = Email.objects.filter(
             user=request.user, sender=request.user
@@ -88,6 +89,7 @@ def mailbox(request, mailbox):
         emails = Email.objects.filter(
             user=request.user, recipients=request.user, archived=True
         )
+        print(f"Successfully extracted all archive {emails}")
     else:
         return JsonResponse({"error": "Invalid mailbox."}, status=400)
 
