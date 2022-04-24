@@ -223,13 +223,13 @@ function view_email(email_id) {
       img_box.setAttribute("data-emailid", email_id);
 
       if( mailbox === 'inbox' ){
-        img_box.setAttribute("src","/static/mail/archive.png");
+        img_box.setAttribute("src","/static/mail/images/archive.png");
         archive_btn.setAttribute("data-emailarchive", true)
         img_box.setAttribute("alt", "Archive Icon");
         img_box.setAttribute("title", "Archive Icon");
         img_box.setAttribute("data-emailarchive", true)
       }else if( mailbox === 'archive' ){
-        img_box.setAttribute("src","/static/mail/unarchive.png");
+        img_box.setAttribute("src","/static/mail/images/unarchive.png");
         archive_btn.setAttribute("data-emailarchive", false)
         img_box.setAttribute("alt", "Unarchive Icon");
         img_box.setAttribute("title", "Unarchive Icon");
@@ -247,7 +247,11 @@ function view_email(email_id) {
       }
 
       reply_div.append(document.createTextNode(" "));
-      reply_div.append(archive_btn);
+
+      if( mailbox !== 'sent'){
+        reply_div.append(archive_btn);
+      }
+      
 
       divider_div  = document.createElement("div");
       divider  = document.createElement("hr");
@@ -271,7 +275,7 @@ function view_email(email_id) {
 
 
 function mark_email_as_read(email_id, read_status){
-  console.log(`There is a request to change the email with id ${email_id} read status to ${varead_statuslue} `)
+  console.log(`There is a request to change the email with id ${email_id} read status to ${read_status} `)
   fetch('/emails/' + email_id, {
     method: 'PUT',
     body: JSON.stringify({
